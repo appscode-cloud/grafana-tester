@@ -1,0 +1,10 @@
+{
+  "PRRepoURL": "github.com/searchlight/grafana-operator",
+  "TestRepoURL": "github.com/appscode-cloud/grafana-tester",
+  "PRTitle": "Test private repo - 1",
+  "PRNumber": 12,
+  "PRState": "open",
+  "PRMerged": false,
+  "HeadRef": "gh-ci",
+  "HeadSHA": "fab400f2a88e793cf209c0530e9893267cce17f8"
+}
