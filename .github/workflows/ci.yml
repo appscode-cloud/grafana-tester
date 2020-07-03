@@ -82,20 +82,20 @@ jobs:
           echo ${{ steps.checkout_operator.outputs.pr_workspace }}
           echo ${{ steps.checkout_operator.outputs.pr_sha }}
 
-      - name: Run e2e tests
-        env:
-          REGISTRY: appscodeci
-          REGISTRY_SECRET: regcred
-          TEST_CREDENTIALS: ${{ secrets.TEST_CREDENTIALS }}
-          GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
-        run: |
-          cd ${{ steps.checkout_operator.outputs.pr_sha }}
-          ls -l
-          echo "preparing test credentials"
-          mkdir -p hack/config
-          echo -n "$TEST_CREDENTIALS" > hack/config/.env
-          echo >> hack/config/.env
-          echo "GOOGLE_SERVICE_ACCOUNT_JSON_KEY=$(echo $GOOGLE_SERVICE_ACCOUNT_JSON_KEY)" >> hack/config/.env
-          make install || ( kubectl describe deployment -n kube-system grafana-operator; kubectl logs -n kube-system deployment/grafana-operator; exit 1; )
-          echo
-          make e2e-tests
+      # - name: Run e2e tests
+      #   env:
+      #     REGISTRY: appscodeci
+      #     REGISTRY_SECRET: regcred
+      #     TEST_CREDENTIALS: ${{ secrets.TEST_CREDENTIALS }}
+      #     GOOGLE_SERVICE_ACCOUNT_JSON_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_KEY }}
+      #   run: |
+      #     cd ${{ steps.checkout_operator.outputs.pr_sha }}
+      #     ls -l
+      #     echo "preparing test credentials"
+      #     mkdir -p hack/config
+      #     echo -n "$TEST_CREDENTIALS" > hack/config/.env
+      #     echo >> hack/config/.env
+      #     echo "GOOGLE_SERVICE_ACCOUNT_JSON_KEY=$(echo $GOOGLE_SERVICE_ACCOUNT_JSON_KEY)" >> hack/config/.env
+      #     make install || ( kubectl describe deployment -n kube-system grafana-operator; kubectl logs -n kube-system deployment/grafana-operator; exit 1; )
+      #     echo
+      #     make e2e-tests
