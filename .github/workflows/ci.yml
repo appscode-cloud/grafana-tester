@@ -40,7 +40,10 @@ jobs:
       - name: Check out operator
         id: checkout_operator
         run: |
+          # https://stackoverflow.com/a/30969768/244009
+          set -o allexport
           source event.env
+          set +o allexport
           env | grep PR | sort
           git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@$PR_REPO_URL.git
           cd $(basename $PR_REPO_URL)
