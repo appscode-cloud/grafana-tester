@@ -40,25 +40,17 @@ jobs:
       - name: Check out operator
         id: checkout_operator
         run: |
-          git log --pretty=oneline
-          git show -s --format=%s
-          IFS='@'
-          read -ra PR <<< $(git show -s --format=%s)
-          echo "PR[0] =" "${PR[0]}"
-          echo "PR[1] =" "${PR[1]}"
-          cd ..
-          git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@${PR[0]}.git
-          cd $(basename ${PR[0]})
-          git checkout ${PR[1]}
-          echo ::set-output name=pr_repo::${PR[0]}
-          echo ::set-output name=pr_workspace::${RUNNER_WORKSPACE}/$(basename ${PR[0]})
-          echo ::set-output name=pr_sha::${PR[1]}
+          source event.env
+          env | grep PR | sort
+          git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@$PR_REPO_URL.git
+          cd $(basename $PR_REPO_URL)
+          git checkout $PR_HEAD_SHA
 
-      - name: Available platforms
-        run: |
-          echo ${{ steps.checkout_operator.outputs.pr_repo }}
-          echo ${{ steps.checkout_operator.outputs.pr_workspace }}
-          echo ${{ steps.checkout_operator.outputs.pr_sha }}
+      # - name: Available platforms
+      #   run: |
+      #     echo ${{ steps.checkout_operator.outputs.pr_repo }}
+      #     echo ${{ steps.checkout_operator.outputs.pr_workspace }}
+      #     echo ${{ steps.checkout_operator.outputs.pr_sha }}
 
       # - name: Create Kubernetes ${{ matrix.k8s }} cluster
       #   id: kind
