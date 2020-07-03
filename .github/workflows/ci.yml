@@ -27,10 +27,11 @@ jobs:
           git config --global user.email "${GITHUB_USER}@appscode.com"
           git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 
-
       - name: Check out operator
         id: checkout_operator
         run: |
+          set -x
+          git show -s --format=%s
           IFS='@'
           read -ra PR <<< $(git show -s --format=%s)
           echo "${PR[@]}"
