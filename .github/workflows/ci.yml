@@ -31,6 +31,7 @@ jobs:
         id: checkout_operator
         run: |
           set -x
+          git log --pretty=oneline
           git show -s --format=%s
           IFS='@'
           read -ra PR <<< $(git show -s --format=%s)
