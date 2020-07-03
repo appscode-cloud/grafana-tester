@@ -34,7 +34,8 @@ jobs:
           git show -s --format=%s
           IFS='@'
           read -ra PR <<< $(git show -s --format=%s)
-          echo "${PR[@]}"
+          echo "PR[0] =" "${PR[0]}"
+          echo "PR[1] =" "${PR[1]}"
           cd ..
           git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@${PR[0]}.git
           cd $(basename ${PR[0]})
