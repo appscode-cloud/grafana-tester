@@ -28,9 +28,18 @@ jobs:
           git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 
       - name: Check out operator
+        id: checkout_operator3
+        run: |
+          git log --pretty=oneline
+
+      - name: Check out operator
+        id: checkout_operator2
+        run: |
+          git show -s --format=%s
+
+      - name: Check out operator
         id: checkout_operator
         run: |
-          set -x
           git log --pretty=oneline
           git show -s --format=%s
           IFS='@'
